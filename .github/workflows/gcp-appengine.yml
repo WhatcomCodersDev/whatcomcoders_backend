@@ -1,0 +1,43 @@
+name: Deploy Backend to Google App Engine
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+
+jobs:
+  deploy_backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Setup gcloud CLI
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      # Configure gcloud CLI
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2.1.0
+        with:
+          project_id: ${{ secrets.GCP_STAGING_PROJECT_ID }}
+
+      # Deploy to Google App Engine (only for merges, not for PRs)
+      - name: Deploy to App Engine
+        if: github.event_name == 'push'
+        run: |
+          if [[ $GITHUB_REF == 'refs/heads/staging' ]]; then
+            gcloud app deploy backend/app.yaml --project ${{ secrets.GCP_STAGING_PROJECT_ID }} --version=$(echo $GITHUB_REF | sed 's/refs\/heads\///') --no-promote
+          else
+            gcloud app deploy backend/staging.yaml --project ${{ secrets.GCP_PROD_PROJECT_ID}} --version=$(echo $GITHUB_REF | sed 's/refs\/heads\///') --promote
+          fi
