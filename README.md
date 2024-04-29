@@ -69,19 +69,18 @@ To set up your local development environment, please follow the steps below:
 
 [April 28th] For now, please contact Whatcom Coders Devs for service account keys, we are in the process of migrating to gcloud secrets. If you have access to the project, you will need to download two service accounts keys and put them in the root directory with the respective names
 
-1. client_secrets.json - ((Keys Creation)[https://console.cloud.google.com/apis/credentials/oauthclient/525864173897-6ssad1t2va8dcc568je7vpt83s8tnns3.apps.googleusercontent.com?hl=en&project=gothic-sled-375305]) This is the used for google sign-in authentication
+1. client_secrets.json - ([Keys Creation](https://console.cloud.google.com/apis/credentials/oauthclient/525864173897-6ssad1t2va8dcc568je7vpt83s8tnns3.apps.googleusercontent.com?hl=en&project=gothic-sled-375305)) This is the used for google sign-in authentication
 
-2. gcloud_secrets.json - ((Keys Creation)[https://console.cloud.google.com/iam-admin/serviceaccounts/details/100907456739208038106?hl=en&project=gothic-sled-375305]) This is the API keys for the service account that interacts with Google APIs
+2. gcloud_secrets.json - ([Keys Creation](https://console.cloud.google.com/iam-admin/serviceaccounts/details/100907456739208038106?hl=en&project=gothic-sled-375305)) This is the API keys for the service account that interacts with Google APIs
 
 ### Deploy to Prod
 
-GCP Project: (gothic-sled-375305)[https://console.cloud.google.com/appengine/versions?serviceId=default&versionId=20240206t212035&hl=en&project=gothic-sled-375305]
+GCP Project: [gothic-sled-375305](https://console.cloud.google.com/appengine/versions?serviceId=default&versionId=20240206t212035&hl=en&project=gothic-sled-375305)
 
-1. Run `npm run build`
-2. Run `firebase deploy`
+1. Run `gcloud app deploy`
 
 ### Deploy to Staging
 
-GCP Project: (whatcomcoders-prod)[https://console.cloud.google.com/appengine/versions?serviceId=default&versionId=20240206t212035&hl=en&project=whatcomcoders-prod] (yes I know thats confusing, we can't change it now...)
+GCP Project: [whatcomcoders-prod](https://console.cloud.google.com/appengine/versions?serviceId=default&versionId=20240206t212035&hl=en&project=whatcomcoders-prod) (yes I know thats confusing, we can't change it now...)
 
 1. Run `gcloud app deploy`
