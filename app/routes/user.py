@@ -54,6 +54,7 @@ def current_user():
         print("current_user_uuid", current_user_uuid)
         user_data = firestore_db.get_user_data_by_uuid(current_user_uuid) 
         print("user_data", user_data)
+        user_data['uuid'] = current_user_uuid
         return jsonify(user_data)
     except Exception as e:
         print(f"Error getting current user: {e}")
@@ -65,6 +66,7 @@ def get_user():
     current_user_uuid = get_jwt_identity()
     logger_manager.logger.debug("current_user_uuid", current_user_uuid)
     user_data = firestore_db.get_user_data_by_uuid(current_user_uuid) 
+    user_data['uuid'] = current_user_uuid
     return jsonify(user_data)
 
 @jwt_manager.invalid_token_loader
