@@ -40,6 +40,7 @@ def create_flask_app() -> Flask:
     elif environment == 'production':
         app.config.from_object('config.ProductionConfig')
         allowed_origins = [
+            # "https://gothic-sled-375305.uc.r.appspot.com"
             # "https://gothic-sled-375305.firebaseapp.com",
             # "https://gothic-sled-375305.web.app",
             "https://www.whatcomcoders.com",
@@ -56,10 +57,14 @@ def create_flask_app() -> Flask:
     app.secret_key = SECRET_KEY
     CORS(app, resources={r"/*": {
         "origins": allowed_origins,
-        "supports_credentials": True}})
+        "supports_credentials": True}}, supports_credentials=True)
 
     app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
+    
+    print(JWT_SECRET_KEY)
     app.config["JWT_TOKEN_LOCATION"] = JWT_TOKEN_LOCATION
+    print(JWT_TOKEN_LOCATION)
+    
     jwt_manager.init_app(app)
 
     return app

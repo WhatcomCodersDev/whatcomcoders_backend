@@ -11,7 +11,7 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = GOOGLE_APPLICATION_CREDENTIALS
 SESSION_COOKIE_SECURE = False
-JWT_COOKIE_CSRF_PROTECT = True
+JWT_COOKIE_CSRF_PROTECT = False
 JWT_TOKEN_LOCATION = ["cookies"]
 CORS_ALLOW_ORIGIN = "*"
 CORS_ALLOW_HEADERS = "Content-Type"
@@ -51,9 +51,15 @@ class ProductionConfig(Config):
     HOST = "0.0.0.0"
     PORT = 8080
     REDIRECT_URI = "https://www.whatcomcoders.com/callback" 
-    BASE_URL = "https://www.whatcomcoders.com"
+    BASE_URL = "https://whatcomcoders.com"
     DOMAIN = ".whatcomcoders.com"
+    JWT_COOKIE_DOMAIN = '.whatcomcoders.com'
+    SESSION_COOKIE_DOMAIN = '.whatcomcoders.com'
     SAMESITE_COOKIE_SETTING = "None"
+    JWT_COOKIE_SAMESITE = "Lax"
+    SESSION_COOKIE_SECURE = True
+    JWT_COOKIE_SECURE = True
     DEBUG = False
     BUCKET_NAME = os.getenv('BUCKET_NAME')
+    JWT_COOKIE_CSRF_PROTECT = False
 

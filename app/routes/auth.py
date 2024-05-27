@@ -38,16 +38,19 @@ def callback():
         access_token = create_access_token(identity=user_doc.id)
         redirect_url = f'{current_app.config["BASE_URL"]}/people'
 
+    print("redirect_url", redirect_url)
     response = make_response(redirect(redirect_url))
     response.set_cookie('access_token_cookie', 
                         access_token, 
-                        httponly=False, 
+                        httponly=True, 
                         samesite=current_app.config["SAMESITE_COOKIE_SETTING"], 
-                        # secure=True, enable during prod
-                        # domain=".whatcomcoders.com", 
+                        secure=True, #enable during prod
                         path='/')
-    print(response)
-
+    print("This is the response", response)
+    # Print the response content
+    print("Response Status:", response.status)
+    print("Response Headers:", response.headers)
+    print("Response Data:", response.data)
     return response
 
 @bp.route("/auth/google")
