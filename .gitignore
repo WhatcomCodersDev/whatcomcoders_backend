@@ -5,7 +5,7 @@ google_env
 env/
 gcloud_secrets.json
 .env*
-
+DS_STORE
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

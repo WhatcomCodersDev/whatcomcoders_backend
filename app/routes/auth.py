@@ -45,7 +45,8 @@ def callback():
                         httponly=True, 
                         samesite=current_app.config["SAMESITE_COOKIE_SETTING"], 
                         secure=True, #enable during prod
-                        path='/')
+                        path='/',
+                        max_age=60*60*2)
     print("This is the response", response)
     # Print the response content
     print("Response Status:", response.status)
