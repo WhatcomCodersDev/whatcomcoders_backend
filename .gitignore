@@ -1,4 +1,5 @@
 .env
+.DS_STORE
 client_secret.json
 __pycache__
 google_env
