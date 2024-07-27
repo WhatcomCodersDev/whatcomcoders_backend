@@ -3,7 +3,7 @@ from flask_cors import CORS
 from config import *
 from app.routes import auth, user, user_profile, directory
 from app.handlers import errors
-from app.services import firestore_db, flow_manager, jwt_manager, logger_manager, sendgrid_wrapper
+from app.services import firestore_db, google_signin_flow_manager, jwt_manager, logger_manager, sendgrid_wrapper
 from dotenv import load_dotenv
 
 
@@ -15,7 +15,7 @@ def create_flask_app() -> Flask:
     elif environment == 'staging':
         dotenv_path = '.env.staging'
     else:
-        dotenv_path = '.env'  # Default to the main .env for development
+        dotenv_path = '.env.development'  # Default to the main .env for development
 
     load_dotenv(dotenv_path=dotenv_path)
 
