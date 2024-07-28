@@ -88,12 +88,28 @@ class GoogleSignInFlowManager:
         This is step 2 in the OAuth2.0 flow diagram. (C -> D)
         '''
         try:
+            print(f"authorization_response_url: {authorization_response_url}")
             self.flow.fetch_token(authorization_response=authorization_response_url)
             credentials = self.flow.credentials
             return credentials
         except Exception as e:
             raise RuntimeError(f"Failed to fetch credentials: {str(e)}")
 
+    def get_id_info(self, credentials: google.oauth2.credentials.Credentials):
+        ''' Get the ID info from the Google OAuth2.0 flow.'''
+        try:
+            request_session = requests.session()
+            token_request = google.auth.transport.requests.Request(session=request_session)
+            id_info = id_token.verify_oauth2_token(
+                id_token=credentials._id_token,
+                request=token_request,
+                audience=os.getenv('GOOGLE_CLIENT_ID')
+            )
+            del id_info["aud"]
+            return id_info
+        except Exception as e:
+            raise RuntimeError(f"Failed to verify ID token: {str(e)}")  
+    
     def get_user_info(self, credentials: google.oauth2.credentials.Credentials):
         ''' Get the user info from the Google OAuth2.0 flow.
         
@@ -112,18 +128,4 @@ class GoogleSignInFlowManager:
             raise RuntimeError(f"Failed to get user info: {str(e)}")
 
 
-    def get_id_info(self, credentials: google.oauth2.credentials.Credentials):
-        ''' Get the ID info from the Google OAuth2.0 flow.'''
-        try:
-            request_session = requests.session()
-            token_request = google.auth.transport.requests.Request(session=request_session)
-            id_info = id_token.verify_oauth2_token(
-                id_token=credentials._id_token,
-                request=token_request,
-                audience=os.getenv('GOOGLE_CLIENT_ID')
-            )
-            del id_info["aud"]
-            return id_info
-        except Exception as e:
-            raise RuntimeError(f"Failed to verify ID token: {str(e)}")
     

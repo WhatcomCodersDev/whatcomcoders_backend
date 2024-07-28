@@ -34,6 +34,7 @@ class DevelopmentConfig(Config):
     DOMAIN = "localhost"
     SAMESITE_COOKIE_SETTING = "Lax"
     BUCKET_NAME = os.getenv('BUCKET_NAME')
+    SECURE_COOKIES = False
 
 
 class StagingConfig(Config):
@@ -59,6 +60,7 @@ class ProductionConfig(Config):
     JWT_COOKIE_SAMESITE = "Lax"
     SESSION_COOKIE_SECURE = True
     JWT_COOKIE_SECURE = True
+    SECURE_COOKIES = True
     DEBUG = False
     BUCKET_NAME = os.getenv('BUCKET_NAME')
     JWT_COOKIE_CSRF_PROTECT = False
